@@ -7,6 +7,18 @@ class CRUD extends DBC{
 //-----------------------------------------admin table----------------------------
 
     public function insertAdmin($name,$email,$password){
+
+        // if($_SERVER['REQUEST_METHOD']==="POST"){
+        //     $name=$_POST['name'];
+        //     $email=$_POST['email'];
+        //     $pw=$_POST['password'];
+        // }
+        //    $insert=new CRUD();
+        //    $insert->insertAdmin($name,$email,$pw);
+        
+        //    header("Location:index.php");
+        //    exit();
+
         $DBC=new DBC();
         $pdo=$DBC->Connect();
 
@@ -105,15 +117,40 @@ public function readCatalog(){
 
 //-----------------------------------------------description_en table-----------------------
 
-public function insert($instructions,$ingredient,$pre_time,$cook_time,$photo){
+public function insert_desEN($instructions,$ingredient,$pre_time,$cook_time,$photo){
     $DBC=new DBC();
     $pdo=$DBC->Connect();
 
-    $insert_desEN=$pdo->prepare("insert into `description_en(instructions,ingredient,pre_time,cook_time,photo) values();");
-    $insert_desEN->bindParam("",$instructions);
-    $insert_desEN->bindParam("",$ingredient);
-    $insert_desEN->bindParam("",$pre_time);
-    $insert_desEN->bindParam("",$cook_time);
-    $insert_desEN->bindParam("",$photo);
+    if($_SERVER['REQUEST_METHOD']==="POST"){
+        $instructions=$_POST['instructions'];
+        $ingredient=$_POST['ingredient'];
+        $pre_time=(int)$_POST['pre_time'];
+        $cook_time=(int)$_POST['cook_time'];
+        $photo=$_FILES['photo'];   
+    }
+    
+    $photoData=file_get_contents($photo['tmp_name']);
+    // echo $instructions,$ingredient,$pre_time,$cook_time;
+    // die(var_dump($photoData));
+    
+try{
 
-    $
+    $insert_desEN=$pdo->prepare("insert into `description_en`(instructions,ingredient,pre_time,cook_time,photo) values(:instructions,:ingredient,:pre_time,:cook_time,:photo);");
+    $insert_desEN->bindParam(":instructions",$instructions);
+    $insert_desEN->bindParam("ingredient",$ingredient);
+    $insert_desEN->bindParam("pre_time",$pre_time);
+    $insert_desEN->bindParam("cook_time",$cook_time);
+    $insert_desEN->bindParam("photo",$photoData,PDO::PARAM_LOB);
+
+    $insert_desEN->execute();
+        echo "Insert Successfully.";
+
+       }catch (PDOException $e){
+        var_dump($e->getMessage());
+       }
+       catch (Exception $e){
+        var_dump($e->getMessage());
+       }
+
+    }
+}

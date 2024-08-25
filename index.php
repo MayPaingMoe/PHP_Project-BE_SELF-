@@ -3,7 +3,7 @@
 require "database_connection.php";
 $read=new CRUD();
 // $admindata=$read->readAdmin();
-$catalogdata=$read->readCatalog();
+// $catalogdata=$read->readCatalog();
 
 ?>
 
@@ -16,8 +16,8 @@ $catalogdata=$read->readCatalog();
 </head>
 <body>
     <div class="col-10 mt-5" >
-                <h3>Catalog</h3>
-                <a href="insertcatalogpage.php" class="btn btn-primary mb-2">Add new catalog</a>
+                <h3>Description</h3>
+                <a href="insertpage.php" class="btn btn-primary mb-2">Add new catalog</a>
     </div>
     <table border="1">
         <tr>
@@ -28,7 +28,7 @@ $catalogdata=$read->readCatalog();
             <th></th>
         </tr>
         <?php 
-        foreach($catalogdata as $a):
+        // foreach($catalogdata as $a):
         ?>
         <!-- <tr> <td> -->
           
@@ -47,7 +47,8 @@ $catalogdata=$read->readCatalog();
            <a href="" class="btn btn-danger"> Delete</a>
            </td>
         </tr>
-        <?php endforeach; ?>
+        <?php 
+    // endforeach; ?>
     </table>
     
 </body>
