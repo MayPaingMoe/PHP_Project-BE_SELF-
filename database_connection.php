@@ -93,9 +93,69 @@ class CRUD extends DBC{
         else{
             echo "Delete Failed!";
         }
-
     }
 
+//-------------------------------------------meal table--------------------------------
+public function readMeal(){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $read_catalog=$pdo->prepare("Select * from `meal`;");
+    $read_catalog->execute();
+    
+    $read=$read_catalog->fetchAll(PDO::FETCH_OBJ);
+    return $read;
+}
+
+public function insert_meal($name,$Cid,$EN_id,$MY_id){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $insert_meal=$pdo->prepare("Insert into `meal`(name,Cid,EN_id,MY_id) values (:name,:Cid,:EN_id,:MY_id);");
+    $insert_meal->bindParam(":name",$name);
+    $insert_meal->bindParam(":Cid",$Cid);
+    $insert_meal->bindParam(":EN_id",$EN_id);
+    $insert_meal->bindParam(":MY_id",$MY_id);
+
+        if( $insert_meal->execute()){
+            echo "Insert meal Successful.";
+        }
+        else{
+            echo "Insert meal Failed.";
+        }
+
+}
+
+//-----------------------------------------------dessert table------------------------------------------------
+public function readDessert(){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $read_catalog=$pdo->prepare("Select * from `dessert`;");
+    $read_catalog->execute();
+    
+    $read=$read_catalog->fetchAll(PDO::FETCH_OBJ);
+    return $read;
+}
+
+public function insert_dessert($name,$Cid,$EN_id,$MY_id){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $insert_dessert=$pdo->prepare("Insert into `dessert`(name,Cid,EN_id,MY_id) values (:name,:Cid,:EN_id,:MY_id);");
+    $insert_dessert->bindParam(":name",$name);
+    $insert_dessert->bindParam(":Cid",$Cid);
+    $insert_dessert->bindParam(":EN_id",$EN_id);
+    $insert_dessert->bindParam(":MY_id",$MY_id);
+
+        if( $insert_dessert->execute()){
+            echo "Insert dessert Successful.";
+        }
+        else{
+            echo "Insert dessert Failed.";
+        }
+
+}
 //--------------------------catalog table -----------------------
 
 public function readCatalog(){
@@ -143,14 +203,78 @@ try{
     $insert_desEN->bindParam("photo",$photoData,PDO::PARAM_LOB);
 
     $insert_desEN->execute();
-        echo "Insert Successfully.";
-
+        // echo "Insert Successfully.";
+header("Location:index.php");
        }catch (PDOException $e){
         var_dump($e->getMessage());
        }
        catch (Exception $e){
         var_dump($e->getMessage());
        }
+
+    }
+
+    public function read_desEn(){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $query=$pdo->prepare("Select * from `description_en`;");
+        $query->execute();
+
+        $read=$query->fetchAll(PDO::FETCH_ASSOC);
+        return $read;
+
+    }
+
+    
+//-----------------------------------------------description_my table-----------------------
+
+public function insert_desMY($instructions,$ingredient,$pre_time,$cook_time,$photo){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    if($_SERVER['REQUEST_METHOD']==="POST"){
+        $instructions=$_POST['instructions'];
+        $ingredient=$_POST['ingredient'];
+        $pre_time=(int)$_POST['pre_time'];
+        $cook_time=(int)$_POST['cook_time'];
+        $photo=$_FILES['photo'];   
+    }
+    
+    $photoData=file_get_contents($photo['tmp_name']);
+    // echo $instructions,$ingredient,$pre_time,$cook_time;
+    // die(var_dump($photoData));
+    
+try{
+
+    $insert_desEN=$pdo->prepare("insert into `description_my`(instructions,ingredient,pre_time,cook_time,photo) values(:instructions,:ingredient,:pre_time,:cook_time,:photo);");
+    $insert_desEN->bindParam(":instructions",$instructions);
+    $insert_desEN->bindParam("ingredient",$ingredient);
+    $insert_desEN->bindParam("pre_time",$pre_time);
+    $insert_desEN->bindParam("cook_time",$cook_time);
+    $insert_desEN->bindParam("photo",$photoData,PDO::PARAM_LOB);
+
+    $insert_desEN->execute();
+        // echo "Insert Successfully.";
+header("Location:index.php");
+       }catch (PDOException $e){
+        var_dump($e->getMessage());
+       }
+       catch (Exception $e){
+        var_dump($e->getMessage());
+       }
+
+    }
+
+    public function read_desMy(){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $query=$pdo->prepare("Select * from `description_my`;");
+        $query->execute();
+
+        $read=$query->fetchAll(PDO::FETCH_ASSOC);
+        return $read;
 
     }
 }

@@ -25,10 +25,10 @@
         <textarea name="ingredient" id="ingredient" required></textarea><br><br>  
 
         <label for="pre_time">Preparation Time (minutes):</label><br>  
-        <input type="number" name="pre_time" id="pre_time" required><br><br>  
+        <input type="time" name="pre_time" id="pre_time" required><br><br>  
 
         <label for="cook_time">Cooking Time (minutes):</label><br>  
-        <input type="number" name="cook_time" id="cook_time" required><br><br>  
+        <input type="time" name="cook_time" id="cook_time" required><br><br>  
 
         <label for="photo">Upload Photo:</label><br>  
         <input type="file" name="photo" id="photo" accept="image/*" required><br><br>  
