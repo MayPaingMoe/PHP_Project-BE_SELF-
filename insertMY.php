@@ -1,5 +1,4 @@
 <?php  
-session_start();
 // Check if the meal is set  
 // if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['meal'])) {  
 //     $_SESSION['$selectedMeal'] = $_POST['meal'];  
@@ -9,8 +8,6 @@ session_start();
 //     echo "No meal selected.";  
 //     exit();  
 // }  
-
-$store=$_SESSION['selectedMeal'];
 ?>  
 
 <html>

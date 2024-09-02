@@ -1,11 +1,16 @@
 <?php  
 session_start();
 // Check if the meal is set  
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['meal'])) {  
-    $_SESSION['$selectedMeal'] = $_POST['meal'];  
-    
-    // echo "Selected Meal: " . htmlspecialchars($selectedMeal) . "<br>"; // Display the selected meal  
-} else {  
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && $_POST['submit']=='meal') {  
+      $Cid=$_POST['Cid'];
+      $type="meal";
+    // echo "Selected Meal: " . htmlspecialchars($meal) . "<br>"; // Display the selected meal  
+} 
+elseif($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['submit']) && $_POST['submit']=='dessert'){
+    $Cid=$_POST['Cid'];
+    $type="dessert";
+}
+else {  
     echo "No meal selected.";  
     exit();  
 }  
@@ -15,6 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['meal'])) {
 <body>
 <form action="test1.php" method="post" enctype="multipart/form-data">  
         
+        <input type='hidden' value='<?php echo $Cid; ?>' name='Cid'>
+        <input type='hidden' value='<?php echo $type; ?>' name='type'>
         <label for="name">Name:</label><br>  
         <textarea name="name" id="name" required></textarea><br><br>
         
