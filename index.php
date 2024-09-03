@@ -1,8 +1,17 @@
 <?php  
+// require "clearCache.php";
 require "database_connection.php";
+
+if(isset($_GET['msg'])){
+    $msg=$_GET['msg'];
+    echo $msg;
+}
+
 $read=new CRUD();
 $read_En=$read->read_desEn();
 $read_My=$read->read_desMy();
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

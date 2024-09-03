@@ -54,49 +54,49 @@ class CRUD extends DBC{
     }
 
 
-    public function editadmin($id){
-        $DBC=new DBC();
-        $pdo=$DBC->Connect();
+    // public function editadmin($id){
+    //     $DBC=new DBC();
+    //     $pdo=$DBC->Connect();
 
-        $edit_recipe=$pdo->prepare("Select * from `recipe` where id=:id");
-        $edit_recipe->bindParam(":id",$id);
-        $edit=$edit_recipe->fetchAll(PDO::FETCH_OBJ);
-        // return $read;
+    //     $edit_recipe=$pdo->prepare("Select * from `admin` where id=:id");
+    //     $edit_recipe->bindParam(":id",$id);
+    //     $edit=$edit_recipe->fetchAll(PDO::FETCH_OBJ);
+    //     // return $read;
 
-        foreach($edit as $e){
-            echo $e->r1."-".$e->r2."-".$e->r3."-"."<br>";
-        }
+    //     foreach($edit as $e){
+    //         echo $e->r1."-".$e->r2."-".$e->r3."-"."<br>";
+    //     }
         
-    }
+    // }
 
-    public function updateadmin($id,$r1,$r2,$r3){
-        $DBC=new DBC();
-        $pdo=$DBC->Connect();
+    // public function updateadmin($id,$r1,$r2,$r3){
+    //     $DBC=new DBC();
+    //     $pdo=$DBC->Connect();
 
-        $update_recipe=$pdo->prepare("Update `recipe` set `r1`='$r1',r2='$r2',r3='$r3' where id=$id");
-        if($update_recipe){
-            echo "Update Successful!";
-        }
-        else{
-            echo "Update Failed!";
-        }
-    }
+    //     $update_recipe=$pdo->prepare("Update `recipe` set `r1`='$r1',r2='$r2',r3='$r3' where id=$id");
+    //     if($update_recipe){
+    //         echo "Update Successful!";
+    //     }
+    //     else{
+    //         echo "Update Failed!";
+    //     }
+    // }
 
-    public function deleteadmin($id){
-        $DBC=new DBC();
-        $pdo=$DBC->Connect();
+    // public function deleteadmin($id){
+    //     $DBC=new DBC();
+    //     $pdo=$DBC->Connect();
 
-        $delete_recipe=$pdo->prepare("Delete From `recipe` where `id`=$id");
-        if($delete_recipe){
-            echo "Delete Successful!";
-        }
-        else{
-            echo "Delete Failed!";
-        }
-    }
+    //     $delete_recipe=$pdo->prepare("Delete From `recipe` where `id`=$id");
+    //     if($delete_recipe){
+    //         echo "Delete Successful!";
+    //     }
+    //     else{
+    //         echo "Delete Failed!";
+    //     }
+    // }
 
 //-------------------------------------------meal table--------------------------------
-public function readMeal(){
+public function read_meal(){
     $DBC=new DBC();
     $pdo=$DBC->Connect();
 
@@ -126,8 +126,43 @@ public function insert_meal($name,$Cid,$EN_id,$MY_id){
 
 }
 
+public function edit_meal($mid){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $edit_meal=$pdo->prepare("Select * from meal where Mid='$mid';");
+    $edit_meal->execute();
+    $edit=$edit_meal->fetchAll(PDO::FETCH_OBJ);
+    return $edit;
+}
+
+public function update_meal($name,$mid){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $update_meal=$pdo->prepare("Update meal set name='$name' where Mid='$mid';");
+   if( $update_meal->execute()){
+    echo "Update meal Successfully.";
+   }
+   else{
+    echo "Update meal Failed.";
+   }
+
+}
+
+public function delete_meal($mid){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
+    $delete_meal=$pdo->prepare("Delete from meal where Mid='$mid';");
+   if( $delete_meal->execute()){
+    echo "Delete meal successfully.";
+   }
+   else{
+    echo "Delete meal failed.";
+   }
+}
 //-----------------------------------------------dessert table------------------------------------------------
-public function readDessert(){
+public function read_dessert(){
     $DBC=new DBC();
     $pdo=$DBC->Connect();
 
@@ -154,8 +189,43 @@ public function insert_dessert($name,$Cid,$EN_id,$MY_id){
         else{
             echo "Insert dessert Failed.";
         }
+    }
 
+public function edit_dessert($did){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $edit_dessert=$pdo->prepare("Select * from dessert where Did='$did';");
+    $edit_dessert->execute();
+    $edit=$edit_dessert->fetchAll(PDO::FETCH_OBJ);
+    return $edit;
 }
+
+public function update_dessert($name,$did){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
+    $update_dessert=$pdo->prepare("Update dessert set name='$name' where Did='$did';");
+    if($update_dessert->execute()){
+        echo "Update dessert successfully.";
+    }
+    else{
+        echo "Update dessert failed.";
+    }
+}
+
+public function delete_dessert($did){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $delete_dessert=$pdo->prepare("Delete from dessert where Did='$did';");
+    if($delete_dessert->execute()){
+        echo "Delect dessert successfully.";
+    }
+    else{
+        echo "Delete dessert failed.";
+    }
+}
+
 //--------------------------catalog table -----------------------
 
 public function readCatalog(){
@@ -174,6 +244,54 @@ public function readCatalog(){
 
 }
 
+public function insertCatalog(){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $insert_catalog=$pdo->prepare("Insert into Catalog() values ();");
+    $insert_catalog->execute();
+
+    if(!$insert_catalog){
+        echo "Insert Catalog Failed.";
+    }
+}
+
+public function edit_catalog($cid){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $edit_catalog=$pdo->prepare("Select * from catalog where Cid='$cid';");
+    $edit_catalog->execute();
+
+    $edit=$edit_catalog->fetchAll(PDO::FETCH_OBJ);
+    return $edit;
+}
+
+public function update_catalog($name,$cid){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $update_catalog=$pdo->prepare("Update catalog set name='$name' where Cid='$cid';");
+    if($update_catalog->execute()){
+        echo "Update catalog successfully.";
+    }
+    else{
+        echo "Update catalog failed.";
+    }
+}
+
+public function delete_catalog($cid){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $delete_catalog=$pdo->prepare("Delete from catalog where Cid='$cid';");
+    if($delete_catalog->execute()){
+        echo "Delete Catalog Successfully.";
+    }
+    else{
+        echo "Delete Catalog Failed.";
+    }
+}
 
 //-----------------------------------------------description_en table-----------------------
 
@@ -204,7 +322,7 @@ try{
 
     $insert_desEN->execute();
         // echo "Insert Successfully.";
-header("Location:index.php");
+// header("Location:index.php");
        }catch (PDOException $e){
         var_dump($e->getMessage());
        }
@@ -226,7 +344,57 @@ header("Location:index.php");
 
     }
 
+   
+    public function lastIDEn() {  
+        $DBC = new DBC();  
+        $pdo = $DBC->Connect();  
     
+        // Prepare and execute the query  
+        $lastIDQuery = $pdo->prepare("SELECT MAX(EN_id) AS last_id FROM description_en");  
+        $lastIDQuery->execute();  
+        
+        // Fetch the result  
+        $result = $lastIDQuery->fetch(PDO::FETCH_ASSOC);  
+        
+        // Return the last ID, use a null coalescing operator to default to 0 if it doesn't exist  
+        return $result['last_id'] ?? 0;  
+    }
+
+    public function edit_desEn($id){
+        $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $edit_desEn=$pdo->prepare("Select * from description_en where EN_id='$id';");
+    $edit_desEn->execute();
+    $edit=$edit_desEn->fetchAll(PDO::FETCH_OBJ);
+    return $edit;
+    }
+
+    public function update_desEn($id,$inst,$ingr,$prt,$cot){
+        $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $update_desEn=$pdo->prepare("Update description_en set instruction='$inst',ingredient='$ingr',pre_time='$prt',cook_time='$cot' where EN_id='$id';");
+    if($update_desEn->execute()){
+        echo "Update description_en Successfully.";
+    }
+    else{
+        echo "Update description_en Failed.";
+    }
+    }
+    
+    public function delete_desEn($id){
+        $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $delete_desEn=$pdo->prepare("Delete from description_en where EN_id='$id';");
+    if($delete_desEn->execute()){
+        echo "Delete from description_en successfully.";
+    }
+    else{
+        echo "Delete form description_en failed.";
+    }
+    }
 //-----------------------------------------------description_my table-----------------------
 
 public function insert_desMY($instructions,$ingredient,$pre_time,$cook_time,$photo){
@@ -256,7 +424,7 @@ try{
 
     $insert_desEN->execute();
         // echo "Insert Successfully.";
-header("Location:index.php");
+// header("Location:index.php");
        }catch (PDOException $e){
         var_dump($e->getMessage());
        }
@@ -276,5 +444,116 @@ header("Location:index.php");
         $read=$query->fetchAll(PDO::FETCH_ASSOC);
         return $read;
 
+    }
+
+    public function lastIDMy() {  
+        $DBC = new DBC();  
+        $pdo = $DBC->Connect();  
+    
+        // Prepare and execute the query  
+        $lastIDQuery = $pdo->prepare("SELECT MAX(MY_id) AS last_id FROM description_my");  
+        $lastIDQuery->execute();  
+        
+        // Fetch the result  
+        $result = $lastIDQuery->fetch(PDO::FETCH_ASSOC);  
+        
+        // Return the last ID, use a null coalescing operator to default to 0 if it doesn't exist  
+        return $result['last_id'] ?? 0;  
+    }
+
+    public function edit_desMy($id){
+        $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $edit_desMy=$pdo->prepare("Select * from description_my where EN_id='$id';");
+    $edit_desMy->execute();
+    $edit=$edit_desMy->fetchAll(PDO::FETCH_OBJ);
+    return $edit;
+    }
+
+    public function update_desMy($id,$inst,$ingr,$prt,$cot){
+        $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $update_desMy=$pdo->prepare("Update description_my set instruction='$inst',ingredient='$ingr',pre_time='$prt',cook_time='$cot' where EN_id='$id';");
+    if($update_desMy->execute()){
+        echo "Update description_my Successfully.";
+    }
+    else{
+        echo "Update description_my Failed.";
+    }
+    }
+    
+    public function delete_desMy($id){
+        $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $delete_desMy=$pdo->prepare("Delete from description_my where EN_id='$id';");
+    if($delete_desMy->execute()){
+        echo "Delete from description_my successfully.";
+    }
+    else{
+        echo "Delete form description_my failed.";
+    }
+    }
+
+//--------------------------------------------user table-----------------------------------
+    public function read_user(){
+        $DBC=new DBC();
+    $pdo=$DBC->Connect();
+        $read_user=$pdo->prepare("Select * from `user`;");
+        $read_user->execute();
+        
+        $read=$read_user->fetchAll(PDO::FETCH_OBJ);
+        return $read;
+    }
+
+    public function insert_user($name,$email,$pwd){
+        $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $insert_user=$pdo->prepare("Insert into user(name,email,password) values('$name','$email','$pwd');");
+    if($insert_user->execute()){
+        echo "Insert user successfully.";
+    }
+    else{
+        echo "Insert user failed.";
+    }
+    }
+
+    public function edit_user($id){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $edit_user=$pdo->prepare("Select * from user where Uid='$id';");
+        $edit_user->execute();
+        $edit=$edit_user->fetchAll(PDO::FETCH_OBJ);
+        return $edit;
+    }
+
+    public function update_user($id,$name,$pwd){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $update_user=$pdo->prepare("Update user set name='$name',password='$pwd' wher Uid='$id';");
+        if($update_user->execute()){
+            echo "Update User successfully.";
+        }
+        else{
+            echo "Update failed.";
+        }
+    }
+
+    public function delete_user($id){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $delete_user=$pdo->prepare("Delete from user where Uid='$id';");
+        if($delete_user->execute()){
+            echo "Delete user successfully.";
+        }
+        else{
+            echo "Delete user failed.";
+        }
     }
 }

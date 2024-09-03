@@ -1,18 +1,19 @@
 <?php  
-// Check if the meal is set  
-// if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['meal'])) {  
-//     $_SESSION['$selectedMeal'] = $_POST['meal'];  
-    
-//     // echo "Selected Meal: " . htmlspecialchars($selectedMeal) . "<br>"; // Display the selected meal  
-// } else {  
-//     echo "No meal selected.";  
-//     exit();  
-// }  
+$msg=$_GET['msg'];
+$ename=$_GET['ename'];
+$Cid=$_GET['Cid'];
+$type=$_GET['type'];
+
+echo $msg;
 ?>  
 
 <html>
 <body>
 <form action="insert_My.php" method="post" enctype="multipart/form-data">  
+        
+        <input type='hidden' value='<?php echo $Cid; ?>' name='Cid'>
+        <input type='hidden' value='<?php echo $type; ?>' name='type'>
+        <input type='hidden' value='<?php echo $ename; ?>' name='ename'>
         
         <label for="name">Name:</label><br>  
         <textarea name="name" id="name" required></textarea><br><br>

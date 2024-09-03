@@ -1,16 +1,3 @@
-<?php
-// die(var_dump($_POST));
-// if($_SERVER['REQUEST_METHOD']==="POST"){
-//     $name=$_POST['name'];
-//     $email=$_POST['email'];
-//     $pw=$_POST['password'];
-// }
-//    $insert=new CRUD();
-//    $insert->insertAdmin($name,$email,$pw);
-
-//    header("Location:index.php");
-//    exit();
-?>
 
 <?php 
 require_once "database_connection.php";
@@ -36,10 +23,8 @@ if($_SERVER['REQUEST_METHOD']==="POST"){
 // echo $photo.$instructions.$ingredient,$pre_time,$cook_time;
 
    $insert =new CRUD();
-   
- 
    $insert->insert_desEN($instructions,$ingredient,$pre_time1,$cook_time1,$photo);
-//  header("Location:insertMY.php");
+ header("Location:insertMY.php?msg=Please Enter Myanmar Language && Cid=$Cid && type=$type && ename=$name");
 exit();
 
 

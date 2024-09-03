@@ -1,5 +1,5 @@
 <?php  
-session_start();
+
 // Check if the meal is set  
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && $_POST['submit']=='meal') {  
       $Cid=$_POST['Cid'];
@@ -22,6 +22,7 @@ else {
         
         <input type='hidden' value='<?php echo $Cid; ?>' name='Cid'>
         <input type='hidden' value='<?php echo $type; ?>' name='type'>
+
         <label for="name">Name:</label><br>  
         <textarea name="name" id="name" required></textarea><br><br>
         
